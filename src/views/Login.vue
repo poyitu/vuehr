@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :rulers="rules" :model="loginForm" class="loginContainer" ref="loginForm">
+    <el-form :rules="rules" :model="loginForm" class="loginContainer" ref="loginForm">
       <h3 class="loginTitle">系统登录</h3>
       <el-form-item prop="username">
         <el-input
