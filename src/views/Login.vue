@@ -50,7 +50,8 @@ export default {
         if (valid) {
           alert('submit!');
         } else {
-          console.log('error submit!!');
+          // console.log('error submit!!');
+          this.$message.error("请输入完整字段")
           return false;
         }
       });
