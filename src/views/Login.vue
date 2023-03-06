@@ -4,20 +4,20 @@
       <h3 class="loginTitle">系统登录</h3>
       <el-form-item prop="username">
         <el-input
-          size="normal"
-          type="text"
-          v-model="loginForm.username"
-          auto-complete="off"
-          placeholder="请输入用户名"
+            size="normal"
+            type="text"
+            v-model="loginForm.username"
+            auto-complete="off"
+            placeholder="请输入用户名"
         ></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
-          size="normal"
-          type="password"
-          v-model="loginForm.password"
-          auto-complete="off"
-          placeholder="请输入密码"
+            size="normal"
+            type="password"
+            v-model="loginForm.password"
+            auto-complete="off"
+            placeholder="请输入密码"
         ></el-input>
       </el-form-item>
       <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>
@@ -28,6 +28,8 @@
 
 
 <script>
+
+
 export default {
   name: "Login",
   data() {
@@ -36,7 +38,7 @@ export default {
       loginForm: {
         username: 'admin',
         password: '123',
-        code:''
+        code: ''
       },
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -44,11 +46,18 @@ export default {
       },
     };
   },
-  methods:{
+  methods: {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          alert('submit!');
+          // alert('submit!');|
+          this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+            if (resp) {
+              // alert(JSON.stringify(resp))
+              window.sessionStorage.setItem('user', JSON.stringify(resp.obj))
+              this.$router.replace('/home')
+            }
+          })
         } else {
           // console.log('error submit!!');
           this.$message.error("请输入完整字段")
@@ -61,7 +70,7 @@ export default {
 </script>
 
 <style>
-.loginContainer{
+.loginContainer {
   border-radius: 15px;
   background-clip: padding-box;
   margin: 180px auto;
@@ -71,6 +80,7 @@ export default {
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
+
 .loginTitle {
   margin: 15px auto 20px auto;
   text-align: center;
