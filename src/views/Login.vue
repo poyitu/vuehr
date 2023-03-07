@@ -17,7 +17,7 @@
             type="password"
             v-model="loginForm.password"
             auto-complete="off"
-            placeholder="请输入密码"
+            placeholder="请输入密码" @keydown.enter.native="submitLogin"
         ></el-input>
       </el-form-item>
       <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>
@@ -55,7 +55,8 @@ export default {
             if (resp) {
               // alert(JSON.stringify(resp))
               window.sessionStorage.setItem('user', JSON.stringify(resp.obj))
-              this.$router.replace('/home')
+              let path = this.$route.query.redirect;
+              this.$router.replace((path=='/'|| path== undefined)?'/home':path)
             }
           })
         } else {

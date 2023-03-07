@@ -22,12 +22,12 @@
       <el-container>
         <el-aside width="200px">
           <el-menu router>
-            <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+            <el-submenu :index="index" v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i style="color: #409eff;margin-right: 5px" :class="item.iconCls"></i>
                 <span>{{ item.name }}</span>
               </template>
-              <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj" >{{
+              <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">{{
                   child.name
                 }}
               </el-menu-item>
@@ -36,6 +36,13 @@
           </el-menu>
         </el-aside>
         <el-main>
+          <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!=='/home'">
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ this.$router.currentRoute.name }}</el-breadcrumb-item>
+          </el-breadcrumb>
+          <div class="homeWelcome"  v-if="this.$router.currentRoute.path==='/home'">
+            欢迎来到微人事!
+          </div>
           <router-view/>
         </el-main>
       </el-container>
@@ -51,6 +58,14 @@ export default {
       user: JSON.parse(window.sessionStorage.getItem("user"))
     }
   },
+  computed: {
+    routes() {
+      return this.$store.state.routes;
+    },
+    // user() {
+    //   return this.$store.state.currentHr;
+    // }
+  },
   methods: {
     // goChat() {
     //   this.$router.push("/chat");
@@ -65,6 +80,7 @@ export default {
         }).then(() => {
           this.getRequest("/logout");
           window.sessionStorage.removeItem("user");
+          this.$store.commit('initRoutes', []);
           this.$router.replace("/")
         }).catch(() => {
           this.$message({
