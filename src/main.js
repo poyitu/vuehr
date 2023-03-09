@@ -32,6 +32,7 @@ router.beforeEach((to, from, next) => {
             initMenu(router, store)
             next()
         } else {
+            //当直接访问内部链接时，直接去登录页面，并带着你要去的页面在参数后面，之后再重定向
             next('/?redirect=' + to.path)
         }
 
