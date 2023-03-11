@@ -150,86 +150,6 @@ export default {
     this.initJls();
   },
   methods: {
-    //     deleteMany() {
-    //         this.$confirm('此操作将永久删除【' + this.multipleSelection.length + '】条记录, 是否继续?', '提示', {
-    //             confirmButtonText: '确定',
-    //             cancelButtonText: '取消',
-    //             type: 'warning'
-    //         }).then(() => {
-    //             let ids = '?';
-    //             this.multipleSelection.forEach(item => {
-    //                 ids += 'ids=' + item.id + '&';
-    //             })
-    //             this.deleteRequest("/system/basic/joblevel/" + ids).then(resp => {
-    //                 if (resp) {
-    //                     this.initJls();
-    //                 }
-    //             })
-    //         }).catch(() => {
-    //             this.$message({
-    //                 type: 'info',
-    //                 message: '已取消删除'
-    //             });
-    //         });
-    //     },
-    //     doUpdate() {
-    //         this.putRequest("/system/basic/joblevel/", this.updateJl).then(resp => {
-    //             if (resp) {
-    //                 this.initJls();
-    //                 this.dialogVisible = false;
-    //             }
-    //         })
-    //     },
-    //     handleSelectionChange(val) {
-    //         this.multipleSelection = val;
-    //     },
-    //     showEditView(data) {
-    //         Object.assign(this.updateJl, data);
-    //         this.dialogVisible = true;
-    //     },
-    //     deleteHandler(data) {
-    //         this.$confirm('此操作将永久【' + data.name + '】职称, 是否继续?', '提示', {
-    //             confirmButtonText: '确定',
-    //             cancelButtonText: '取消',
-    //             type: 'warning'
-    //         }).then(() => {
-    //             this.deleteRequest("/system/basic/joblevel/" + data.id).then(resp => {
-    //                 if (resp) {
-    //                     this.initJls();
-    //                 }
-    //             })
-    //         }).catch(() => {
-    //             this.$message({
-    //                 type: 'info',
-    //                 message: '已取消删除'
-    //             });
-    //         });
-    //     },
-    //     addJobLevel() {
-    //         if (this.jl.name && this.jl.titleLevel) {
-    //
-    //             this.postRequest("/system/basic/joblevel/", this.jl).then(resp => {
-    //                 if (resp) {
-    //                     this.initJls();
-    //                 }
-    //             });
-    //         } else {
-    //             this.$message.error("添加字段不可以为空!");
-    //         }
-    //     },
-    //     initJls() {
-    //         this.loading = true;
-    //         this.getRequest("/system/basic/joblevel/").then(resp => {
-    //             this.loading = false;
-    //             if (resp) {
-    //                 this.jls = resp;
-    //                 this.jl = {
-    //                     name: '',
-    //                     titleLevel: ''
-    //                 };
-    //             }
-    //         })
-    //     }
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
@@ -298,7 +218,10 @@ export default {
       }
     },
     initJls() {
+      this.loading = true;
       this.getRequest("/system/basic/joblevel/").then(resp => {
+        this.loading = false
+        if (resp){}
         this.jls = resp
         this.jl = {
           name: '',

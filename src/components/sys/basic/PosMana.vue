@@ -186,7 +186,7 @@ export default {
       }
     },
     initPositions() {
-      // this.loading = true;
+      this.loading = true;
       this.getRequest("/system/basic/pos/").then(resp => {
         this.loading = false;
         if (resp) {

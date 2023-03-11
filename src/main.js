@@ -20,7 +20,7 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
 
-Vue.use(ElementUI)
+Vue.use(ElementUI,{size:'small'})
 
 Vue.config.productionTip = false
 
