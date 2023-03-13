@@ -119,6 +119,9 @@ export default {
         let d = deps[i]
         if (d.id === dep.parentId) {
           d.children = d.children.concat(dep)
+          if (d.children.length > 0) {
+            d.parent = true
+          }
           return
         } else {
           this.addDep2Deps(d.children, dep)
@@ -145,7 +148,7 @@ export default {
         }).then(() => {
           this.deleteRequest("/system/basic/department/" + data.id).then(resp => {
             if (resp) {
-              this.removeDepFromDeps(this.deps, data.id)
+              this.removeDepFromDeps(null, this.deps, data.id)
             }
           })
         }).catch(() => {
@@ -156,14 +159,16 @@ export default {
         });
       }
     },
-    removeDepFromDeps(desp, id) {
+    removeDepFromDeps(p, desp, id) {
       for (let i = 0; i < desp.length; i++) {
         let d = desp[i]
         if (d.id === id) {
           desp.splice(i, 1)
-
+          if (desp.length === 0) {
+            p.parent = false
+          }
         } else {
-          this.removeDepFromDeps(d.children, id)
+          this.removeDepFromDeps(d, d.children, id)
         }
       }
     }
