@@ -40,7 +40,7 @@
             <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>{{ this.$router.currentRoute.name }}</el-breadcrumb-item>
           </el-breadcrumb>
-          <div class="homeWelcome"  v-if="this.$router.currentRoute.path==='/home'">
+          <div class="homeWelcome" v-if="this.$router.currentRoute.path==='/home'">
             欢迎来到微人事!
           </div>
           <router-view class="homeRouterView"/>
@@ -67,9 +67,9 @@ export default {
     // }
   },
   methods: {
-    // goChat() {
-    //   this.$router.push("/chat");
-    // },
+    goChat() {
+      this.$router.push("/chat");
+    },
 
     commandHandler(cmd) {
       if (cmd == 'logout') {
